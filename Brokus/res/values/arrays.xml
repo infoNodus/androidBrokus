@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sectores">
+        <item>Arquitectura</item>
+        <item>Ganaderia</item>
+        <item>Calzado</item>
+        <item>Quimicos</item>
+        <item>Sector #5</item>
+        <item>Sector #6</item>
+        <item>Sector #7</item>
+        <item>Sector #8</item>
+        <item>Sector #9</item>
+        <item>Sector #10</item>
+    </string-array>
+    <string-array name="Arquitectura">
+        <item>2361 Edificación residencial</item>
+		<item>2362 Edificación no residencial</item>
+		<item>2371 Construcción de obras para elsuministro de agua, petróleo, gas,energía eléctrica y telecomunicaciones</item>
+		<item>2372 División deterrenos y construcción de obras de urbanización</item>
+		<item>2373 Construcción de vías de comunicación</item>
+		<item>2379 Otras construcciones deingeniería civil</item>
+		<item>2381 Cimentaciones, montaje deestructuras prefabricadas y trabajosen exteriores</item>
+		<item>2382 Instalaciones y equipamiento en construcciones</item>
+		<item>2383 Trabajos de acabados en edificaciones</item>
+		<item>2389 Otrostrabajosespecializados para la construcción</item>
+    </string-array>
+    <string-array name="Agricultura_y_Ganaderia">
+        <item>3111 Elaboración de alimentos para animales</item>
+		<item>3112 Molienda de granos y desemillas y obtención de aceites y grasas</item>
+		<item>3113 Elaboración de azúcares, chocolates, dulces y similares</item>
+		<item>3114 Conservación de frutas, verduras y alimentos preparados</item>
+		<item>3115 Elaboración de productoslácteos</item>
+		<item>3116 Matanza,empacado y procesamiento de carne de ganado, aves y otros animales comestibles</item>
+		<item>3117 Preparación y envasado de pescados y mariscos</item>
+		<item>3118 Elaboración de productos de panadería y tortillas</item>
+		<item>3119 Otrasindustrias alimentarias</item>
+    </string-array>
+    <string-array name="Calzado">
+        <item>3161 Curtido y acabado de cuero y piel</item>
+		<item>3162 Fabricación de calzado</item>
+		<item>3169 Fabricación de otros productos de cuero, piel y materialessucedáneos</item>
+    </string-array>
+    <string-array name="Quimicos">
+		<item>3251 Fabricación de productos químicos básicos</item>
+		<item>3252 Fabricación deresinas y hulessintéticos, y fibras químicas</item>
+		<item>3253 Fabricación defertilizantes, pesticidas y otros agroquímicos</item>
+		<item>3254 Fabricación de productos farmacéuticos</item>
+		<item>3255 Fabricación de pinturas,recubrimientos y adhesivos</item>
+		<item>3256 Fabricación dejabones, limpiadores y preparaciones detocador</item>
+		<item>3259 Fabricación de otros productos químicos</item>
+        
+    </string-array>
+    
+</resources>

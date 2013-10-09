@@ -1,0 +1,173 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg1"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".RegistroActivity" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/sFecha_detalle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Selecccione imagen de perfil:"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <ImageView
+                android:id="@+id/imagen_registro"
+                android:layout_width="200px"
+                android:layout_height="200px"
+                android:layout_gravity="center" 
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btnAbrir_imagen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@color/azul_brokus"
+                android:text=" Cargar " />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/blanco" />
+		       
+		    <EditText
+		        android:id="@+id/txtRegistro_nombre_usuario"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:ems="10"
+		        android:hint="nombre de usuario"
+		        android:inputType="text" >
+		
+		       <requestFocus/>
+		    </EditText>
+		    
+		    <TextView
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:textAppearance="?android:attr/textAppearanceMedium"
+		        android:textColor="@color/blanco" />
+
+		    <AutoCompleteTextView
+		        android:id="@+id/txtRegistro_nombre_company"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:ems="10"
+		        android:hint="Empresa" />
+		    
+		    <TextView
+
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textAppearance="?android:attr/textAppearanceMedium"
+		        android:textColor="@color/blanco" />
+		       
+		    <EditText
+		        android:id="@+id/txtRegistro_puesto"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:ems="10"
+		        android:hint="puesto"
+		        android:inputType="text" >
+		       
+		    </EditText>
+		    
+		    <TextView
+		        android:id="@+id/sFecha_detalle"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		
+		    <Spinner
+		        android:id="@+id/spinnerRegistro_sector"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:drawSelectorOnTop="true"
+		         />
+
+		    <Spinner
+		        android:id="@+id/spinnerRegistro_SubSector"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content" />
+		
+		    <TextView
+		        android:id="@+id/sFecha_detalle"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textAppearance="?android:attr/textAppearanceMedium"
+		        android:textColor="@color/blanco" />
+		       
+		    <EditText
+		        android:id="@+id/txtRegistro_email"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:ems="10"
+		        android:hint="correo electronico"
+		        android:inputType="textEmailAddress" >
+		       
+		    </EditText>
+		    
+		    <TextView
+		        android:id="@+id/sFecha_detalle"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textAppearance="?android:attr/textAppearanceMedium"
+		        android:textColor="@color/blanco" />
+		       
+		    <EditText
+		        android:id="@+id/txtRegistro_contrasena"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:ems="10"
+		        android:hint="contraseña"
+		        android:inputType="textPassword" >
+		       
+		    </EditText>
+		    
+		    <TextView
+		        android:id="@+id/sFecha_detalle"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textAppearance="?android:attr/textAppearanceMedium"
+		        android:textColor="@color/blanco" />
+		       
+		    <EditText
+		        android:id="@+id/txtRegistro_confirmar_contrasena"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:ems="10"
+		        android:hint="confirmar contraseña"
+		        android:inputType="textPassword" >
+		       
+		    </EditText>
+
+		    <Button
+		        android:id="@+id/btnAceptar"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="right"
+		        android:background="@color/azul_brokus"
+		        android:text=" Finalizar " />
+            
+        </LinearLayout>
+    </ScrollView>
+   
+</LinearLayout>

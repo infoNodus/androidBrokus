@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Brok Us</string>
+    <string name="action_opciones">Opciones</string>
+    <string name="action_circulo_confianza">Circulo de confianza</string>
+    <string name="action_busqueda">Buscarque sencilla</string>
+    <string name="action_busqueda_avanzada">Busqueda avanzada</string>
+    <string name="action_Salir">Salir</string>
+    <string name="action_nueva_publicacion">Nueva publicacion</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_registro">RegistroActivity</string>
+    <string name="title_activity_perfil">PerfilActivity</string>
+    <string name="title_activity_nueva_publicacion">NuevaPublicacionActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_circulo_confianza">CirculoConfianzaActivity</string>
+    <string name="title_activity_explorador_archivos">Explorador_Archivo</string>
+    <string name="title_activity_detalle">DetalleActivity</string>
+    <string name="title_activity_perfil_empresa">PerfilEmpresaActivity</string>
+
+</resources>

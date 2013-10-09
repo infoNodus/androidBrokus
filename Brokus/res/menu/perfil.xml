@@ -1,0 +1,41 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_opciones"/>
+    
+    <item
+        android:id="@+id/action_circle"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_circulo_confianza"/>
+   
+    <item
+        android:id="@+id/action_new_post"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_nueva_publicacion"/>
+    
+       <item
+        android:id="@+id/action_search"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_busqueda"/>
+     
+        <item
+        android:id="@+id/action_avanced_search"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_busqueda_avanzada"/>
+        
+         <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_Salir"
+        />
+   
+
+</menu>

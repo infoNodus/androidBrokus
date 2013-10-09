@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="azul_nodus">#0f70b7</color>
+    <color name="azul_nodus_transparente">#990f70b7</color>
+    <color name="blanco">#ffffff</color>
+    <color name="blanco_transparente">#ffffff</color>
+    <color name="azul_brokus">#38b9e2</color>
+    <color name="verde">#40FF00</color>
+    <color name="negro">#000000</color>
+    <color name="publicacion_color_1">#F6CECE</color>
+    <color name="publicacion_color_2">#F6E3CE</color>
+    <color name="publicacion_color_3">#F5F6CE</color>
+    <color name="publicacion_color_4">#D8F6CE</color>
+    <color name="publicacion_color_5">#CEF6EC</color>
+    <color name="publicacion_color_6">#ECCEF5</color>
+    <color name="publicacion_caducada">#A4A4A4</color>
+    
+    
+</resources>
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/sNombre_publicacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bety Diaz de Leon"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/azul_nodus" />
+
+    <TextView
+        android:id="@+id/sContenido_publicacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Se solicitan 5 programadores para el area de desarrollo en dispositivos moviles, favor de ponerse al contacto al siguiente numero 44xxxxxxx"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</LinearLayout>
