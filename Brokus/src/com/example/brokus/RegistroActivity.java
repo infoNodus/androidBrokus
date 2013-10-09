@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.net.Uri;
@@ -39,7 +40,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.ConnectionResult;
@@ -369,7 +369,27 @@ public boolean imagendefault=false;
 		
 		
 	}
-	
+	public void ConvertirUsuario(JSONObject json){
+		try {
+			
+			String userid=json.getString("respuesta");
+			Log.i("User",userid);
+			if(userid=="error"){
+				Toast confirm=Toast.makeText(getApplicationContext(),"Error, registro no completado",Toast.LENGTH_SHORT);
+				confirm.show();
+			}
+			else{
+				Toast confirm=Toast.makeText(getApplicationContext(),"Registro realizado con exito",Toast.LENGTH_SHORT);
+				confirm.show();
+				
+			}
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
