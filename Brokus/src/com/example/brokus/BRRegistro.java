@@ -8,7 +8,7 @@ private String Puesto=null;
 private String Sector=null;
 private String Password=null;
 private String Email=null;
-private byte[] Logo=null;
+private String Logo=null;
 private String NoEmpresa=null;
 	public BRRegistro(){
 		super();
@@ -35,7 +35,7 @@ private String NoEmpresa=null;
 	public void BREmail(String Correo){
 		this.Email=Correo;
 	}
-	public void BRLogo(byte[] BRLogo){
+	public void BRLogo(String BRLogo){
 		this.Logo=BRLogo;
 	}
 	public void BRNoEmpresa(String result){
@@ -62,7 +62,7 @@ private String NoEmpresa=null;
 	public String GetEmail(){
 		return Email;
 	}
-	public byte[] GetLogo(){
+	public String GetLogo(){
 		return Logo;
 	}
 	public String GetNoEmpresa(){
