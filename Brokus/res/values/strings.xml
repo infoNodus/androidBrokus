@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Brok Us</string>
-    <string name="action_opciones">Opciones</string>
+    <string name="action_opciones">Enviar Correo</string>
     <string name="action_circulo_confianza">Circulo de confianza</string>
     <string name="action_busqueda">Buscarque sencilla</string>
     <string name="action_busqueda_avanzada">Busqueda avanzada</string>

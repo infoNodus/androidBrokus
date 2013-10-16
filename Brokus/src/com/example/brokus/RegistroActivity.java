@@ -112,6 +112,7 @@ public boolean imagendefault=false;
 		autocom.setAdapter(adaptervalues);
         imageFile=(ImageView)findViewById(R.id.imagen_registro);
 		imageFile.setImageResource(R.drawable.icon);
+		
 		ByteArrayOutputStream bs= new ByteArrayOutputStream();
 		ObjectOutputStream os;
 		try {
@@ -166,6 +167,12 @@ public boolean imagendefault=false;
 		//if (login.mPlusClient.isConnected()){
 		 User.setText(values.getString("nombre"));
 	     userEmail.setText(values.getString("correo"));
+	     Password.setText(values.getString("password"));
+	     re_Password.setText(values.getString("password"));
+	     Password.setVisibility(View.GONE);
+	     re_Password.setVisibility(View.GONE);
+	     User.setEnabled(false);
+	     userEmail.setEnabled(false);
 		}
 		//}
 		
@@ -195,7 +202,8 @@ public boolean imagendefault=false;
 								}
 
 								SaveRegistro(Registrar);
-
+								Intent i = new Intent(mthis, LoginActivity.class);
+								startActivity(i);
 
 							}
 							else
@@ -287,10 +295,46 @@ public boolean imagendefault=false;
 	}
 	@Override
 	   public void onBackPressed(){ //Regresa a la Actividad de Login Sin matar la Aplicacion -Jairo 
-		   super.onBackPressed();
-		   
-	   }
+		Log.i("conectado",""+connectedreg);
+		BackLogin();
+		  	   }
 
+	public void BackLogin(){
+		if (connectedreg){
+			  AlertDialog.Builder alert = new AlertDialog.Builder(mthis);
+		         alert.setTitle("A V I S O");
+		         alert.setMessage("¿Esta seguro que desea Salir del Registro ? ");
+		         alert.setCancelable(false);
+		         alert.setPositiveButton("Si", new DialogInterface.OnClickListener(){
+
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						// TODO Auto-generated method stub
+						
+						Intent i = new Intent(mthis, LoginActivity.class);
+						boolean singout=true;
+						i.putExtra("desconectar", singout);
+						startActivity(i);
+						mthis.finish();
+					}
+		       	  
+		         });
+		         alert.setNegativeButton("No", new DialogInterface.OnClickListener(){
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+						
+					}
+		       	  
+		       	  
+		         });
+		         alert.show();
+		}else{
+			super.onBackPressed();
+		}
+	}
 	
 	public boolean ValidarPassword(){
 		boolean res=false;

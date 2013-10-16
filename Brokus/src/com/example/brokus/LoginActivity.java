@@ -10,6 +10,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.plus.PlusClient;
+import com.google.android.gms.plus.PlusClient.OnAccessRevokedListener;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.android.gms.plus.model.people.PersonBuffer;
 import com.google.android.gms.plus.model.people.Person.Image;
@@ -38,10 +39,11 @@ import android.widget.Toast;
 
 
 public class LoginActivity extends Activity implements OnClickListener,
-ConnectionCallbacks, OnConnectionFailedListener, PlusClient.OnPeopleLoadedListener  {
+ConnectionCallbacks, OnConnectionFailedListener, PlusClient.OnPeopleLoadedListener, OnAccessRevokedListener  {
 
 	
 	private ProgressDialog mConnectionProgressDialog;
+	private static final int REQUEST_CODE_RESOLVE_ERR=9000;
 	private static final int DIALOG_GET_GOOGLE_PLAY_SERVICES = 2;
 	private static final int REQUEST_CODE_SIGN_IN =3;
 	private static final int REQUEST_CODE_GET_GOOGLE_PLAY_SERVICES =4;
@@ -55,7 +57,10 @@ ConnectionCallbacks, OnConnectionFailedListener, PlusClient.OnPeopleLoadedListen
 	PlusClient mPlusClient;
 	String Usuario;
 	String cuenta;
+	String contrasena;
+	String user;
 	boolean connected=false;
+	boolean singout=false;
 	
 	
 	@Override
@@ -75,16 +80,23 @@ ConnectionCallbacks, OnConnectionFailedListener, PlusClient.OnPeopleLoadedListen
 		connectionProgressDialog.setMessage("Conectando...");
 		
 		mSignOutButton.setOnClickListener(this);
+		mSignOutButton.setVisibility(View.INVISIBLE);
 		this.linkRegistro = (TextView)findViewById(R.id.link_registro);
 		SpannableString content = new SpannableString("Registrarse ahora");
 		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 		linkRegistro.setText(content);
-		
 		mthis = this;
-		
+		  Intent intent = mthis.getIntent();
+			Bundle values= intent.getExtras();
+			singout=values.getBoolean("desconectar");
+			Log.i("desconectar",""+singout);
+			if(connected){
+				mSignInButton.setEnabled(false);
+			}else{
+				mSignInButton.setEnabled(true);
+			}
+			
 		Button btnlogin = (Button)findViewById(R.id.btnIr_login); 
-		
-
 		linkRegistro.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -126,6 +138,7 @@ ConnectionCallbacks, OnConnectionFailedListener, PlusClient.OnPeopleLoadedListen
 	    public void onStart() {
 	        super.onStart();
 	        mPlusClient.connect();
+	      
 	    }
 
 	    @Override
@@ -160,7 +173,7 @@ if (cont!=1){
         alert.show();
 }
 else if (cont==1){
-        String user = usertxt.getText().toString();//Obtiene el String del Usuario-Jairo
+        user = usertxt.getText().toString();//Obtiene el String del Usuario-Jairo
         boolean isValid = false;
     String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";//Valida formato de correo -Jairo
     CharSequence inputStr = user;
@@ -268,6 +281,24 @@ else if (cont==1){
 		   
 	   }
 	
+	 public void desconectarapp(){
+		  if (mPlusClient.isConnected())
+          {
+			 mPlusClient.clearDefaultAccount();
+			 mPlusClient.disconnect();
+			 mPlusClient.connect();
+			// onAccessRevoked();
+
+              Toast.makeText(LoginActivity.this,
+                  "Sesión Cerrada.",
+                  Toast.LENGTH_LONG).show();
+              mSignInButton.setEnabled(true);
+             
+          }
+
+		 
+	 }
+	
 	private void verCreditos() {
 		AlertDialog.Builder creditos = new AlertDialog.Builder(mthis);
 		creditos.setTitle("Nodus Creative Center\nBrokus App");
@@ -344,24 +375,59 @@ else if (cont==1){
 		
 		 Person currentPerson = mPlusClient.getCurrentPerson();
 		if (mPlusClient.getCurrentPerson() != null) {
+			usertxt.setText(mPlusClient.getAccountName());
+			passwordtxt.setText("cuentagoogle");
+			user= usertxt.getText().toString();
 			connected=true;
-	    	AlertDialog.Builder alert=new AlertDialog.Builder(mthis);
-	    	alert.setMessage(
+			String password = passwordtxt.getText().toString();//Obtiene el string del Password -Jairo 
+			BRUsuario u = new BRUsuario(user, password);
+	        if(Utilerias.existeUsuario(this, u)){ //Utiliza Clase Utilerias creada por Rolando y devuelve un valor tipo Boolean para validar si la cuenta existe-Jairo
+	           if(Utilerias.esContrasenaValida(u, this)){
+	            	//Pantalla Muro -Jairo
+	        	   if (singout==true){
+	   				mSignOutButton.performClick();
+	   			}else{
+	            	usuarioActivo = (new BRDataSource()).getUsuario(user, password); //Tras haber validado usuario y contrasena se asigna el usuario activo de la app
+	            	int id = usuarioActivo.getId();
+	            	Intent in = new Intent(mthis, CirculoConfianzaActivity.class);
+	        		
+	        		startActivity(in);
+			        finish();
+	   			}
+	            }
+	            else{
+	            	AlertDialog.Builder alert = new AlertDialog.Builder(mthis);
+	                alert.setTitle("A V I S O !");
+	                alert.setMessage("Contrasena Invalida!");
+	                alert.setCancelable(false);
+	                alert.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
+	                             
+	                             @Override
+	                             public void onClick(DialogInterface dialog, int which) {
+	                                     // TODO Auto-generated method stub
+	                                     dialog.dismiss();
+	                             }
+	                     });
+	             alert.create();
+	             alert.show();
+	            }
+	        	
+	        }else{
+	        	  currentPerson.getDisplayName();
+	   	       mPlusClient.getAccountName();
+	   	    	 contrasena = passwordtxt.getText().toString();
+	   	    	 Usuario=currentPerson.getDisplayName();
+	   	    	 cuenta= mPlusClient.getAccountName();
+	   	    	 mSignOutButton.setEnabled(true);
+	   	    	 Intent i = new Intent(mthis, RegistroActivity.class);
+	   	    	 i.putExtra("connected", connected);
+	   	 		 i.putExtra("nombre", Usuario.toString() );
+	   	 		 i.putExtra("correo", cuenta.toString());
+	   	 		 i.putExtra("password", contrasena.toString());
+	   	 		 startActivity(i);
+	        }
 	      
-	       currentPerson.getDisplayName() + "\n" +
-	       mPlusClient.getAccountName());
-	    	alert.show();
-	    	 Usuario=currentPerson.getDisplayName();
-	    	 cuenta= mPlusClient.getAccountName();
-	    	 mSignOutButton.setEnabled(true);
-	    	 Intent i = new Intent(mthis, RegistroActivity.class);
-	    	 i.putExtra("connected", connected);
-	 		 i.putExtra("nombre", Usuario.toString() );
-	 		 i.putExtra("correo", cuenta.toString());
-	 	
-	 		 startActivity(i);
 		}
-		
 		updateButtons(true);
 		
 	}
@@ -379,12 +445,13 @@ else if (cont==1){
 		
 				  switch(view.getId()) {
 		          case R.id.sign_in_button:
+		        	  
 		              int available = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
 		              if (available != ConnectionResult.SUCCESS) {
 		                  showDialog(DIALOG_GET_GOOGLE_PLAY_SERVICES);
 		                  return;
 		              }
-
+		              	
 		              try {
 		                
 		                  mConnectionResult.startResolutionForResult(this, REQUEST_CODE_SIGN_IN);
@@ -395,24 +462,11 @@ else if (cont==1){
 		              }
 		              break;
 		          case R.id.button1:
-		        	  if (mPlusClient.isConnected())
-			            {
-						 mPlusClient.clearDefaultAccount();
-						 mPlusClient.disconnect();
-						 //mPlusClient.connect();
-			 
-			                Toast.makeText(LoginActivity.this,
-			                    "Sesión Cerrada.",
-			                    Toast.LENGTH_LONG).show();
-			                SignInButton btnSignIn = (SignInButton)findViewById(R.id.sign_in_button);
-			   	    	 btnSignIn.setEnabled(true);
-			
-			            }
-		            
+		        	 desconectarapp();
 		              break;
 				  }
-			
-
+		
+				  
 		
 	}
 	 private void updateButtons(boolean isSignedIn) {
@@ -430,14 +484,19 @@ else if (cont==1){
 	            } else {
 	                // Enable the sign-in button since a connection result is available.
 	            	mSignInButton.setEnabled(true);
-	            	mSignOutButton.setEnabled(true);
+	            	mSignOutButton.setEnabled(false);
 	                
 	            }
 
-	            mSignOutButton.setEnabled(true);
+	            mSignOutButton.setEnabled(false);
 	            
 	        }
 	    }
+	@Override
+	public void onAccessRevoked(ConnectionResult arg0) {
+		// TODO Auto-generated method stub
+		 mPlusClient.revokeAccessAndDisconnect(this);
+	}
 
 	
 	

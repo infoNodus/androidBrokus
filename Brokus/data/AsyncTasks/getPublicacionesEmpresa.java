@@ -17,7 +17,7 @@ public class getPublicacionesEmpresa extends AsyncTask<String, Integer, String> 
 	
 	public getPublicacionesEmpresa(int id){
 		this.id = id;
-
+		
 	}
 
 	@Override
@@ -29,6 +29,7 @@ public class getPublicacionesEmpresa extends AsyncTask<String, Integer, String> 
 	@Override
 	protected String doInBackground(String... params) {
 		RESTClient request=new RESTClient("http://192.168.1.24/brokus/getEmpresaPerfil.php?id="+id);
+		
 		try {
 			request.Execute(RequestMethod.GET);
 			
@@ -49,7 +50,7 @@ public class getPublicacionesEmpresa extends AsyncTask<String, Integer, String> 
 		try{
 			
 			JSONObject json = new JSONObject(result);
-			PerfilEmpresaActivity.mthis.Convertir(json);
+			//PerfilEmpresaActivity.mthis.Convertir(json);
 		}
 		catch (Exception e){
 			e.printStackTrace();

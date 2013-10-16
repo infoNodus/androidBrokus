@@ -12,6 +12,7 @@ public class BRPublicacion {
 	private Date fechaCaducidad;
 	private Integer idUsuario;
 	private String nombreUsuario;
+	private String fechaString;
 	
 	private String extension;
 	
@@ -70,6 +71,16 @@ public class BRPublicacion {
 	public void setFechaCaducidad(Date fechaCaducidad) {
 		this.fechaCaducidad = fechaCaducidad;
 	}
+	
+	public void setFechaString(String fechaString){
+		this.fechaString = fechaString;
+	}
+	
+	public String getFechaString(){
+		return this.fechaString;
+	}
+	
+	
 	
 	
 }

@@ -26,6 +26,8 @@ public class SplashActivity extends Activity {
 		      @Override
 		      public void run() {
 		        Intent mainIntent = new Intent().setClass(SplashActivity.this, LoginActivity.class);
+		        boolean singout=false;
+				mainIntent.putExtra("desconectar", singout);
 		        startActivity(mainIntent);
 		        finish();//Destruimos esta activity para prevenit que el usuario retorne aqui presionando el boton Atras.
 		      }

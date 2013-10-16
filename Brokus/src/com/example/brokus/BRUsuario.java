@@ -2,12 +2,12 @@ package com.example.brokus;
 
 import android.graphics.Bitmap;
 
-public class BRUsuario {
+public class BRUsuario implements Comparable<BRUsuario>{
 	private Integer id;	
 	private String nombre;
 	private String username;
 	private String puesto;
-	private String logo;
+	private Object logo;
 	private String sector;
 	private String contrasena;
 	private String empresa;
@@ -58,11 +58,11 @@ public class BRUsuario {
 		this.puesto = puesto;
 	}
 
-	public String getLogo() {
+	public Object getLogo() {
 		return logo;
 	}
 
-	public void setLogo(String logo) {
+	public void setLogo(Object logo) {
 		this.logo = logo;
 	}
 	
@@ -84,11 +84,23 @@ public class BRUsuario {
 	public void setEmpresa(String empresa) {
 		this.empresa = empresa;
 	}
+
 	@Override
 	public String toString() {
-		return "Usuario [username=" + username+", nombre=" + nombre + ", contrasena=" + contrasena
-				+ ", empresa=" + empresa + "]";
+		return "BRUsuario [id=" + id + ", nombre=" + nombre + ", username="
+				+ username + ", puesto=" + puesto 
+				+ ", sector=" + sector + ", contrasena=" + contrasena
+				+ ", empresa=" + empresa +   ", logo=" + logo + "]";
 	}
+    
+
+	@Override
+	public int compareTo(BRUsuario arg0) {
+		// TODO Auto-generated method stub
+		return this.getNombre().compareToIgnoreCase(arg0.getNombre());
+	}
+	
+	
 	
 	
 }

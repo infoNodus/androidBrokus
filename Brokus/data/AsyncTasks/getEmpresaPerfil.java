@@ -50,7 +50,7 @@ public class getEmpresaPerfil extends AsyncTask<String, Integer, String> {
 		try{
 			
 			JSONObject json = new JSONObject(result);
-			PerfilEmpresaActivity.mthis.Convertir(json);
+			//PerfilEmpresaActivity.mthis.Convertir(json);
 		}
 		catch (Exception e){
 			e.printStackTrace();

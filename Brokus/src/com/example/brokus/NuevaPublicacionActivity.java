@@ -54,7 +54,7 @@ NumberPicker pickerCaducidad;
 TextView display;
 EditText editTitulo;
 EditText editContenido;
-
+String extension;
 int cday, cmonth, cyear;
 Calendar c = Calendar.getInstance();
 DatePickerDialog.OnDateSetListener d = new OnDateSetListener() {
@@ -185,10 +185,15 @@ DatePickerDialog.OnDateSetListener d = new OnDateSetListener() {
 		 publicacion.setContenido(this.editContenido.toString());
 		 publicacion.setIdUsuario(LoginActivity.mthis.usuarioActivo.getId());
 		 publicacion.setAnexo(Utilerias.bitmapToString(imageScaled)); //WARNING!! Solo Imagenes por el momento
-		 
+		 if(extension.equals(".jpg")){
+			 publicacion.setAnexo(Utilerias.bitmapToString(imageScaled));
+		 }else if(extension.equals(".pdf")){
+			 publicacion.setAnexo(Utilerias.ToStr(pathFileStr));
+		 }
+
 		 //publicacion.setFechaCaducidad((java.sql.Date) ((this.checkerCaducidad.isChecked()) 
 				 //? fechaCad : Utilerias.sumarFechasDias(Utilerias.deStringToDate(Utilerias.getFechaActual()), 3))); //3 dias de vigencia como Default
-		 publicacion.setFechaCaducidad((java.sql.Date) fechaCad);
+		 publicacion.setFechaCaducidad(fechaCad);
 		 
 		 BRDataSource data = new BRDataSource(this);
 		 data.savePublicacion(publicacion);
@@ -230,6 +235,7 @@ DatePickerDialog.OnDateSetListener d = new OnDateSetListener() {
 				Bitmap foto= (Bitmap)data.getExtras().get("data");
 				imageScaled =Bitmap.createScaledBitmap(foto, imageFile.getHeight(), imageFile.getHeight(), true);
 				imageFile.setImageBitmap(imageScaled);
+				extension=".jpg";
 			}
 			if (requestCode == gallery) {
 				pathFileUri = data.getData();
@@ -245,6 +251,7 @@ DatePickerDialog.OnDateSetListener d = new OnDateSetListener() {
 				imageScaled =Bitmap.createScaledBitmap(image,imageFile.getHeight(), imageFile.getHeight(), true);
 				imageFile.setImageBitmap(imageScaled);
 				nameFile.setText(pathFileStr);
+				extension=".jpg";
 				
 			}
 			
@@ -260,6 +267,7 @@ DatePickerDialog.OnDateSetListener d = new OnDateSetListener() {
 				            Bitmap image =BitmapFactory.decodeResource(mthis.getResources(),R.drawable.pdf_image,options);
 				            Bitmap imageScaled =Bitmap.createScaledBitmap(image, imageFile.getHeight(), imageFile.getHeight(), true);
 				        	imageFile.setImageBitmap(imageScaled);
+				        	extension=".pdf";
 			            }
 				        else 
 			            {
@@ -295,20 +303,23 @@ DatePickerDialog.OnDateSetListener d = new OnDateSetListener() {
 	        	nameFile.setText("");
 	        	imageFile.setImageResource(R.drawable.nodus);
 	            OptionFile(takePhoto);
+	            extension="";
 	            return true;
 	        case R.id.action_adjuntar_imagen:
 	        	 gallery=2;
 	        	 pathFileStr=null;
 	        	 nameFile.setText("");
 		         imageFile.setImageResource(R.drawable.nodus);
-	        	 OptionFile(gallery);;
+	        	 OptionFile(gallery);
+	        	 extension="";
 	            return true;
 	        case R.id.action_adjuntar:
 	        	 pdf=3;
 	        	 pathFileStr=null;
 	        	 nameFile.setText("");
 		         imageFile.setImageResource(R.drawable.nodus);
-	        	 OptionFile(pdf);;
+	        	 OptionFile(pdf);
+	        	 extension="";
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);

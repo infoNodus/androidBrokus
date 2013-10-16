@@ -3,6 +3,8 @@ import AsyncTasks.*;
 import AsyncTasks.RESTClient.RequestMethod;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -87,12 +89,12 @@ public class BRDataSource {
 			public void run() {				
 				request = new RESTClient("http://192.168.1.24/brokus/getPublicacion.php");
 				 try{
-					 request.AddParam("idUsuario", String.valueOf(id));					
+					 request.AddParam("id", String.valueOf(id));					
 					 request.Execute(RequestMethod.GET);
-					 Log.i("response", ""+request.getResponse());				 
+					// Log.i("response", ""+request.getResponse());				 
 					 JSONObject json = new JSONObject(request.getResponse());
 				     BRPublicacion pub;
-						 JSONArray jarray = json.getJSONArray("publicaciones");
+						 JSONArray jarray = json.getJSONArray("publicacion");
 				    		for(int i = 0; i < jarray.length(); i++){
 				    			pub = new BRPublicacion();
 				    			JSONObject jobj = jarray.getJSONObject(i);
@@ -100,8 +102,9 @@ public class BRDataSource {
 				    			pub.setTitulo(jobj.getString("titulo"));
 				    			pub.setContenido(jobj.getString("contenido"));
 				    			pub.setAnexo(jobj.getString("anexo"));
-				    			pub.setFechaCaducidad((java.sql.Date)jobj.get("fecha"));
-				    			pub.setIdUsuario(jobj.getInt("idUsuario"));
+				    			pub.setFechaCaducidad((java.sql.Date) Utilerias.deStringToDate(jobj.getString("fecha")));
+				    			pub.setIdUsuario(jobj.getInt("idusuario"));
+				    			pub.setExtension(jobj.getString("extension"));
 				    			publicaciones.add(pub);
 				    		}
 				    		Log.i("Publicaciones!!", String.valueOf(publicaciones.size()));
@@ -126,15 +129,19 @@ public class BRDataSource {
 				// TODO Auto-generated method stub
 				request = new RESTClient("http://192.168.1.24/brokus/setPublicacion.php");
 				 try{
+					
+					
+					 Log.i("Publicacion..", p.toString());
 					 request.AddParam("titulo", p.getTitulo());
 					 request.AddParam("contenido", p.getContenido());					 
-					 request.AddParam("anexo", p.getAnexo());
-					 request.AddParam("fecha", p.getFechaCaducidad().toString());
+				     request.AddParam("fecha", Utilerias.formatoDateToStringMySQL(p.getFechaCaducidad()));
 					 request.AddParam("idusuario", String.valueOf(p.getIdUsuario().intValue()));
+					 request.AddParam("extension", p.getExtension());
+					 request.AddParam("anexo", (String)p.getAnexo());
 					 
 					 // request.AddParam(", value);
 					
-					 request.Execute(RequestMethod.GET);
+					 request.Execute(RequestMethod.GET); //POST
 					 Log.i("response", ""+request.getResponse());					 
 					
 					 /*JSONObject json = new JSONObject(request.getResponse());
@@ -158,6 +165,66 @@ public class BRDataSource {
 		catch(InterruptedException e){	e.printStackTrace(); }
 	}
 	
+	public BRUsuario getUsuarioById(final int id){	
+		Thread hilo = new Thread(new Runnable(){
+		@Override
+		public void run() {
+		// TODO Auto-generated method stub
+		request = new RESTClient("http://192.168.1.24/brokus/getUsuarioId.php?id=" + id);
+		try{
+
+		request.Execute(RequestMethod.GET);
+		Log.i("response", ""+request.getResponse());	
+		 
+		JSONObject jobj = new JSONObject(request.getResponse());
+		jobj = jobj.getJSONObject("usuario");
+		usuario = new BRUsuario();
+		usuario.setUsername(jobj.getString("correo"));
+		    usuario.setContrasena(jobj.getString("contrasena"));
+		    usuario.setId(jobj.getInt("idUsuario"));
+		    usuario.setNombre(jobj.getString("nombre"));
+		    usuario.setPuesto(jobj.getString("puesto"));
+		    usuario.setSector(jobj.getString("sector"));
+		    usuario.setEmpresa(jobj.getString("empresa_idempresa"));
+		    usuario.setLogo((String)jobj.get("imagen"));
+		    /*JSONArray jarray = json.getJSONArray("usuario");
+		    for(int i = 0; i < jarray.length(); i++){
+		    JSONObject jobj = jarray.getJSONObject(i);
+		    usuario.setUsername(jobj.getString("correo"));
+		    usuario.setContrasena(jobj.getString("contrasena"));
+		    usuario.setId(jobj.getInt("idUsuario"));
+		    usuario.setNombre(jobj.getString("nombre"));
+		    usuario.setPuesto(jobj.getString("puesto"));
+		    usuario.setSector(jobj.getString("sector"));
+		    usuario.setEmpresa(jobj.getString("empresa_idempresa"));
+		    usuario.setLogo((String)jobj.get("imagen"));
+		   	
+		    }*/
+		   
+		    Log.i("Usuario!!", usuario.toString());
+		}
+		catch(JSONException e){
+		usuario = null;
+		e.printStackTrace();
+		}
+		catch(Exception e)
+		{
+		e.printStackTrace();	  
+		}
+		}
+
+		});
+
+		hilo.start();
+		try{
+		hilo.join();
+		}
+		catch(InterruptedException e){
+		e.printStackTrace();
+		}
+
+		return usuario;
+		}
 	public BRUsuario getUsuario(final String correo, final String password){		
 		Thread hilo = new Thread(new Runnable(){
 			@Override
@@ -168,21 +235,36 @@ public class BRDataSource {
 					 request.AddParam("correo", correo);
 					 request.AddParam("contrasena", password);
 					 request.Execute(RequestMethod.GET);
-					 Log.i("response", ""+request.getResponse());					
-					 JSONObject json = new JSONObject(request.getResponse());
-						usuario = new BRUsuario();
-						 JSONArray jarray = json.getJSONArray("usuario");
-				    		for(int i = 0; i < jarray.length(); i++){
+					 //Log.i("response", ""+request.getResponse());	
+					 
+					 JSONObject jobj = new JSONObject(request.getResponse());
+					 jobj = jobj.getJSONObject("usuario");
+					 /*JSONArray array=jobj.getJSONArray("usuario");
+					 jobj=array.getJSONObject(0);*/
+					 usuario = new BRUsuario();
+					 usuario.setUsername(jobj.getString("correo"));
+		    		 usuario.setContrasena(jobj.getString("contrasena"));
+		    		 usuario.setId(jobj.getInt("idUsuario"));
+		    		 usuario.setNombre(jobj.getString("nombre"));
+		    		 usuario.setPuesto(jobj.getString("puesto"));
+		    		 usuario.setSector(jobj.getString("sector"));
+		    		 usuario.setEmpresa(jobj.getString("empre_isempresa"));
+		    		 usuario.setLogo((String)jobj.get("imagen"));
+				     /*JSONArray jarray = json.getJSONArray("usuario");
+				     for(int i = 0; i < jarray.length(); i++){
 				    			JSONObject jobj = jarray.getJSONObject(i);
 				    			usuario.setUsername(jobj.getString("correo"));
 				    			usuario.setContrasena(jobj.getString("contrasena"));
-				    			usuario.setId(jobj.getInt("idusuario"));
+				    			usuario.setId(jobj.getInt("idUsuario"));
 				    			usuario.setNombre(jobj.getString("nombre"));
 				    			usuario.setPuesto(jobj.getString("puesto"));
 				    			usuario.setSector(jobj.getString("sector"));
-				    			usuario.setLogo(jobj.getString("imagen"));
-				    		}
-				    		Log.i("Usuario!!", usuario.toString());
+				    			usuario.setEmpresa(jobj.getString("empresa_idempresa"));
+				    			usuario.setLogo((String)jobj.get("imagen"));
+				    			
+				     }*/
+				    
+				    Log.i("Usuario!!", usuario.toString());
 				 }
 				 catch(JSONException e){
 					 e.printStackTrace();

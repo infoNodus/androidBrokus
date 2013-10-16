@@ -11,6 +11,46 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".NuevaPublicacionActivity" >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="100dp"
+            android:layout_height="68dp"
+            android:src="@drawable/nodus" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txtNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/blanco" />
+
+            <TextView
+                android:id="@+id/txtPuesto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/blanco" />
+
+            <TextView
+                android:id="@+id/txtSector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/blanco" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
@@ -81,8 +121,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
             </FrameLayout>
-
-            <Button
+			<ListView 
+			    android:id="@+id/ListaComentarios"
+			    android:layout_width="fill_parent"
+			    android:layout_height="fill_parent"
+			    
+			    />
+	            <Button
                 android:id="@+id/btnRecomendar_detalle"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
