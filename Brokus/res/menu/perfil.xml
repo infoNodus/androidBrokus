@@ -6,6 +6,13 @@
         android:showAsAction="never"
         android:title="@string/action_opciones"/>
     
+        <item
+        android:id="@+id/action_mi_perfil"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Mi perfil"/>
+    
+    
     <item
         android:id="@+id/action_circle"
         android:orderInCategory="100"

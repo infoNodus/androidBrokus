@@ -2,8 +2,10 @@ package com.example.brokus;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
@@ -240,8 +242,39 @@ public class Utilerias {
 		return formatted;
 	}
     
-    
+	public static String loadFile(String sourcePath) throws IOException
+	{
+	    InputStream inputStream = null;
+	    try 
+	    {
+	        inputStream = new FileInputStream(sourcePath);
+	        return readFully(inputStream);
+	    } 
+	    finally
+	    {
+	        if (inputStream != null)
+	        {
+	            inputStream.close();
+	        }
+	    }
+	}
 	
+	
+	public static String readFully(InputStream stream) throws IOException
+	{
+	    byte[] buffer = new byte[8192];
+	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+	    int bytesRead;
+	    while ((bytesRead = stream.read(buffer)) != -1)
+	    {
+	        baos.write(buffer, 0, bytesRead);
+	    }
+	    byte[] bytes = baos.toByteArray();
+	    String base64 = Base64.encodeToString(bytes, Base64.DEFAULT);
+	    return base64;
+	}
+
 	
     
    

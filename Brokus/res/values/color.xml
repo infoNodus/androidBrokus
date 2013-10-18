@@ -2,6 +2,7 @@
 <resources>
     <color name="azul_nodus">#0f70b7</color>
     <color name="azul_nodus_transparente">#990f70b7</color>
+    <color name="rosa_nodus_transparente">#99ff00aa</color>
     <color name="blanco">#ffffff</color>
     <color name="blanco_transparente">#ffffff</color>
     <color name="azul_brokus">#38b9e2</color>

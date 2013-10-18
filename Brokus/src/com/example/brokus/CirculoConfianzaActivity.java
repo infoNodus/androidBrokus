@@ -47,6 +47,7 @@ public class CirculoConfianzaActivity extends Activity {
 	private TextView sPuesto;
 	private TextView sSector;
 	private ImageView sImagen;
+	private BRUsuario userActivo;
 	public ArrayList<BRPublicacion> listPublicacion;
 	public ArrayList<BRUsuario> listUsuarios;
     public int id;
@@ -108,7 +109,7 @@ adapter.notifyDataSetChanged();
 		this.sSector = (TextView)findViewById(R.id.sSector_perfil);
 		this.sImagen = (ImageView)findViewById(R.id.imagen_detalle);
 		//Mostrar Info Usuario Activo
-		BRUsuario userActivo = LoginActivity.mthis.usuarioActivo;
+		userActivo = LoginActivity.mthis.usuarioActivo;
 		//BRUsuario userActivo = (new BRDataSource()).getUsuarioById(2);
 		this.sNombre.setText(userActivo.getNombre());
 		this.sPuesto.setText(userActivo.getPuesto());
@@ -272,6 +273,15 @@ adapter.notifyDataSetChanged();
 	        case R.id.action_circle:
 	        	openPane();
 	            return true;
+	        case R.id.action_mi_perfil:
+	        	Intent i = new Intent(mthis, MiPerfilActivity.class);
+	        	i.putExtra("id", this.userActivo.getId());
+	        	i.putExtra("nombre", userActivo.getNombre());
+	        	i.putExtra("sector", userActivo.getSector());
+	        	i.putExtra("puesto", userActivo.getPuesto());
+	        	i.putExtra("imagen", (String) userActivo.getLogo());
+	        	startActivity(i);
+	        	break;
 	        
 	    }
 
@@ -380,7 +390,7 @@ adapter.notifyDataSetChanged();
     	this.usuario_sector = (TextView)layout.findViewById(R.id.sSector_perfil);
     	this.logo = (ImageView)layout.findViewById(R.id.imagen_detalle);
 
-    	final BRUsuario usuario = listUsuarios.get(position);
+				final BRUsuario usuario = listUsuarios.get(position);
     	usuario_nombre.setText(""+ usuario.getNombre());
     	usuario_perfil.setText(" "+ usuario.getPuesto());
     	usuario_sector.setText(" "+usuario.getSector());
@@ -403,7 +413,7 @@ adapter.notifyDataSetChanged();
     	i.putExtra("id", usuario.getId());
     	i.putExtra("nombre", usuario.getNombre());
     	i.putExtra("puesto", usuario.getPuesto());
-    	i.putExtra("imagen", (String) usuario.getLogo());
+    	i.putExtra("imagen",  usuario.getLogo().toString());
     	mthis.startActivity(i);
     	return false;
     	}
