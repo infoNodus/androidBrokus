@@ -201,9 +201,18 @@ public boolean imagendefault=false;
 									Registrar.BRNoEmpresa("N");
 								}
 
-								SaveRegistro(Registrar);
-								Intent i = new Intent(mthis, LoginActivity.class);
-								startActivity(i);
+								try{
+									SaveRegistro(Registrar);
+									Intent i = new Intent(mthis, LoginActivity.class);
+									boolean singout=true;
+									i.putExtra("desconectar", singout);
+									startActivity(i);
+									mthis.finish();
+								}
+								catch(Exception e){
+									Toast errorMessage=Toast.makeText(getApplicationContext(), "Error",Toast.LENGTH_SHORT );
+								}
+
 
 							}
 							else
@@ -290,8 +299,14 @@ public boolean imagendefault=false;
 		editor.putString("logoUsuario", Registro.GetLogo().toString());
 		editor.putString("noEmpresa", Registro.GetNoEmpresa().toString());
 		editor.commit();
-		AsyncTasks.InsertRegister Insertar=new AsyncTasks.InsertRegister();
-		Insertar.execute();
+		try{
+			AsyncTasks.InsertRegister Insertar=new AsyncTasks.InsertRegister();
+			Insertar.execute();
+		}
+		catch(Exception e){
+			Toast mensajeerror=Toast.makeText(this.getApplicationContext(), "Error al registrar verifique su conexion a internet", Toast.LENGTH_SHORT );
+		}
+
 	}
 	@Override
 	   public void onBackPressed(){ //Regresa a la Actividad de Login Sin matar la Aplicacion -Jairo 
